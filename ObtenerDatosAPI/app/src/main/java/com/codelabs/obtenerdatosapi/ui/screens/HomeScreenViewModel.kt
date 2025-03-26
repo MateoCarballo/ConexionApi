@@ -1,5 +1,6 @@
 package com.codelabs.obtenerdatosapi.ui.screens
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -33,11 +34,18 @@ class HomeScreenViewModel(private val questionRepository: QuestionRepository) : 
 
     fun loadQuestions(quantity: Int) {
         viewModelScope.launch {
-            val questions = questionRepository.getQuestions(quantity).map { it.toQuestion() }
-            _homeViewState.update {
-                it.copy(
-                    questionsList = questions,
-                )
+            val rawQuestions = questionRepository.getQuestions(quantity)
+            if (rawQuestions.isNotEmpty()){
+                val questionparsed = rawQuestions.map { it.toQuestion() }
+                _homeViewState.update {
+                    Log.e("HomeScreenViewModel", "Entrando en update")
+                    it.copy(
+                        questionsList = questionparsed,
+                        loading = false,
+                    )
+                }
+            }else{
+                Log.e("HomeScreenViewModel", "No questions returned from API.")
             }
         }
     }

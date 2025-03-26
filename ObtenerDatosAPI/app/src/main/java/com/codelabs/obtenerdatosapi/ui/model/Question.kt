@@ -6,6 +6,9 @@ data class Question (
     val rawCorrectAnswer: String,
     )
 {
+    init {
+        require(rawtitle.isNotEmpty()){"El titulo de la pregunta NO PUEDE estar vacío"}
+    }
     val title: String
         get() = rawtitle.decodeHtml()
 

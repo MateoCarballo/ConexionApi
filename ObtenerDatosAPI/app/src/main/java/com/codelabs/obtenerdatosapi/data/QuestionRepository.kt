@@ -1,5 +1,6 @@
 package com.codelabs.obtenerdatosapi.data
 
+import android.util.Log
 import com.codelabs.obtenerdatosapi.network.TriviaApiService
 import com.codelabs.obtenerdatosapi.ui.model.QuestionApi
 
