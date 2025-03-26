@@ -17,8 +17,9 @@ import kotlinx.coroutines.launch
 
 data class HomeScreenState(
     val questionsList: List<Question> = emptyList(),
-    val questionSelected: Int = 0,
+    val questionIndex: Int = 0,
     val selectedAnswer: String? = null,
+    val loading: Boolean = true,
 )
 
 class HomeScreenViewModel(private val questionRepository: QuestionRepository) : ViewModel(){
@@ -50,10 +51,10 @@ class HomeScreenViewModel(private val questionRepository: QuestionRepository) : 
     }
 
     fun nextQuestion(){
-        if (_homeViewState.value.questionSelected < (_homeViewState.value.questionsList.size -1)){
+        if (_homeViewState.value.questionIndex < (_homeViewState.value.questionsList.size -1)){
             _homeViewState.update {
                 it.copy(
-                    questionSelected = _homeViewState.value.questionSelected + 1
+                    questionIndex = _homeViewState.value.questionIndex + 1
                 )
             }
         }
