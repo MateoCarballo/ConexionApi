@@ -1,6 +1,6 @@
 package com.codelabs.obtenerdatosapi.network
 
-import com.codelabs.obtenerdatosapi.ui.model.QuestionApiResponse
+import com.codelabs.obtenerdatosapi.model.QuestionApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

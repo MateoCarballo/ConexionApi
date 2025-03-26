@@ -1,4 +1,4 @@
-package com.codelabs.obtenerdatosapi.ui.model
+package com.codelabs.obtenerdatosapi.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -6,15 +6,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class QuestionApi(
     @SerialName("question")
-    val title: String,
+    val question: String,
     @SerialName("correct_answer")
     val correct_answer: String,
-    @SerialName("incorrect_answer")
-    val answers: List<String>
+    @SerialName("incorrect_answers")
+    val incorrect_answers: List<String>
 ) {
     fun toQuestion(): Question {
-        val options = answers.toMutableList()
+        val options = incorrect_answers.toMutableList()
         options.add(correct_answer)
-        return Question(title,options.shuffled(),correct_answer)
+        return Question(question,options.shuffled(),correct_answer)
     }
 }

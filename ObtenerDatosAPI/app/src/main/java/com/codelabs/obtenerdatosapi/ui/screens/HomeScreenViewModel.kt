@@ -9,7 +9,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.codelabs.obtenerdatosapi.TriviaApplication
 import com.codelabs.obtenerdatosapi.data.QuestionRepository
-import com.codelabs.obtenerdatosapi.ui.model.Question
+import com.codelabs.obtenerdatosapi.model.Question
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,6 +21,8 @@ data class HomeScreenState(
     val questionIndex: Int = 0,
     val selectedAnswer: String? = null,
     val loading: Boolean = true,
+    val aciertos: Int = 0,
+
 )
 
 class HomeScreenViewModel(private val questionRepository: QuestionRepository) : ViewModel(){
@@ -28,17 +30,14 @@ class HomeScreenViewModel(private val questionRepository: QuestionRepository) : 
     private val _homeViewState = MutableStateFlow(HomeScreenState())
     val homeViewState: StateFlow<HomeScreenState> = _homeViewState.asStateFlow()
 
-    init {
-        loadQuestions(10)
-    }
-
     fun loadQuestions(quantity: Int) {
         viewModelScope.launch {
+            Log.e("mateo", "Entrando en launch del update")
             val rawQuestions = questionRepository.getQuestions(quantity)
+            Log.e("mateo", rawQuestions.toString())
             if (rawQuestions.isNotEmpty()){
                 val questionparsed = rawQuestions.map { it.toQuestion() }
                 _homeViewState.update {
-                    Log.e("HomeScreenViewModel", "Entrando en update")
                     it.copy(
                         questionsList = questionparsed,
                         loading = false,

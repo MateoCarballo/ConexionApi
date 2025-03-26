@@ -1,4 +1,4 @@
-package com.codelabs.obtenerdatosapi.ui.model
+package com.codelabs.obtenerdatosapi.model
 
 import kotlinx.serialization.Serializable
 

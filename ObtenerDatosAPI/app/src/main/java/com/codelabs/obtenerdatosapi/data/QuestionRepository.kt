@@ -2,7 +2,7 @@ package com.codelabs.obtenerdatosapi.data
 
 import android.util.Log
 import com.codelabs.obtenerdatosapi.network.TriviaApiService
-import com.codelabs.obtenerdatosapi.ui.model.QuestionApi
+import com.codelabs.obtenerdatosapi.model.QuestionApi
 
 interface QuestionRepository{
     suspend fun getQuestions(quantity: Int): List<QuestionApi>
